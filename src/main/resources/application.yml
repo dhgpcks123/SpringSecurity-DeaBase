@@ -23,3 +23,10 @@ spring:
 
 logging.level:
  org.hibernate.SQL: debug
+
+
+ # 설정 생략 가능
+ #  mvc:
+ #   view:
+ #    prefix: /templates/
+ #    suffix: .mustache
