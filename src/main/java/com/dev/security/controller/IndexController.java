@@ -17,27 +17,28 @@ public class IndexController {
     }
 
     @GetMapping("/user")
-    public String user() {
+    public @ResponseBody String user() {
         return "user";
     }
 
     @GetMapping("/admin")
-    public String admin() {
+    public @ResponseBody String admin() {
         return "admin";
     }
 
     @GetMapping("/manager")
-    public String manager() {
+    public @ResponseBody String manager() {
         return "manager";
     }
 
+    //SecuriyConfig 파일 config설정하니까 작동 함 - 낚아채기 안 함
     @GetMapping("/login")
-    public String login() {
+    public @ResponseBody String login() {
         return "login";
     }
 
     @GetMapping("/join")
-    public String join() {
+    public @ResponseBody String join() {
         return "join";
     }
 
