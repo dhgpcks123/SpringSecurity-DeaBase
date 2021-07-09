@@ -28,6 +28,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().permitAll()
 //        There was an unexpected error (type=Forbidden, status=403). 403은 권한이 없다는 말!
                 .and()
-                .formLogin().loginPage("/loginForm");
+                .formLogin().loginPage("/loginForm")
+                .loginProcessingUrl("/login") // /login 주소가 호출이 되면 시큐리티가 낚아채서 대신 로그인을 진행해준다. // password체크도..
+                // 컨트롤러에 /login 안 만들어줘도 된다.
+                .defaultSuccessUrl("/");
     }
 }
