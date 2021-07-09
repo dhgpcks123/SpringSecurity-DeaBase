@@ -3,6 +3,8 @@ package com.dev.security.controller;
 import com.dev.security.model.User;
 import com.dev.security.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -68,4 +70,28 @@ public class IndexController {
 
         return "redirect:/loginForm";
     }
+
+    @Secured("ROLE_ADMIN")
+    //이 메서드 실행될 때 권한 체크
+    @GetMapping("/info")
+    public @ResponseBody String info(){
+        return "개인정보";
+    }
+
+
+    @PreAuthorize("hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN'))")
+    //이 메서드가 실행되기 직전에 실행된다 .
+    /*
+        예)
+    @Secured({"ROLE_USER","ROLE_ADMIN"}) => OR 조건, AND 조건 불가능
+    @PreAuthorize("hasRole('ROLE_USER') and hasRole('ROLE_ADMIN')") => and 조건, or 조건 모두 가능
+    @PostAuthorize도 있다. 잘 안 쓸 듯;
+
+    보통 global로 쓰면서, 개개별로 @Secured를 쓸 듯
+     */
+    @GetMapping("/data")
+    public @ResponseBody String data(){
+        return "데이터 정보";
+    }
+
 }
