@@ -24,4 +24,7 @@ public class User {
     @CreationTimestamp
     private Timestamp createDate; //import java.sql.Timestamp;
 //    private Timestamp loginDate;
+
+    private String provider;
+    private String providerId;
 }
