@@ -22,6 +22,18 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
 
         System.out.println("-----------------------------------");
         //회원가입을 강제로 진행해볼 예정
+        //userRequest
+        //구글로그인 버튼 --> 구글로그인 창 --> 로그인 완료 --> code 리턴!
+        //OAuth-client라이브러리가 받아주고 그걸로 --> AccessToken 요청!
+        //--> AccessToken 받음. 여기가 바로 userRequest입니다.
+        //--> userRequest정보로 Profile을 받아야지? --> loadUser함수 --> 회원 프로필
+
+        OAuth2User oauth2User = super.loadUser(userRequest);
+
         return super.loadUser(userRequest);
+        //ClientRegistration : 우리 서버의 기본 정보, 클라이언트 아이디, secret 등
+        // --> registrationId로 어떤 OAuth로 로그인 했는지 확인 가능
+        //AccessToken :
+        //Attributes :
     }
 }

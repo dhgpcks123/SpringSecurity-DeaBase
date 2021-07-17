@@ -1,11 +1,17 @@
 package com.dev.security.controller;
 
+import com.dev.security.auth.PrincipalDetails;
 import com.dev.security.model.User;
 import com.dev.security.repository.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +27,37 @@ public class IndexController {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-//    @GetMapping("//login/oauth2/code/google"){}
+    @GetMapping("/test/login")
+    public @ResponseBody String testLogin(Authentication authentication,
+                                          @AuthenticationPrincipal PrincipalDetails userDetails) {
+        //@AuthenticationPrincipal을 통해 세션에 접근할 수 있따.
+        //얘는 UserDetails타입을 가지고 있다.
+        System.out.println("/test/login==============");
+        System.out.println("authentication.get = " + authentication.getPrincipal());
+        //==클래스 Casting 에러 발생//
+        PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+        //==//
+        System.out.println("principalDetails = " + principalDetails.getUser());
+
+//        System.out.println("userDetails = " + userDetails.getUsername());
+        System.out.println("userDetails = " + userDetails.getUser());
+
+        //getUser를 찾는 두 가지 방법...
+        return "세선 저장정보 확인하기";
+    }
+
+    //구글 로그인 시에는 CastException 발생하지 않음. 반대로 그냥 로그인 시 CastException 발생함.
+    @GetMapping("/test/oauth/login")
+    public @ResponseBody String testOAuthLogin(Authentication authentication,
+                                          @AuthenticationPrincipal PrincipalDetails userDetails) {
+
+        System.out.println("/test/login==============");
+        System.out.println("authentication.get = " + authentication.getPrincipal());
+        OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
+        System.out.println("principalDetails = " + oAuth2User.getAttributes());
+
+        return "OAuth2 세션 정보 확인";
+    }
 
     @GetMapping({"","/"})
     public String index() {
