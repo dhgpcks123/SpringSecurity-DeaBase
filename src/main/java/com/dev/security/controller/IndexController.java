@@ -21,6 +21,8 @@ public class IndexController {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+//    @GetMapping("//login/oauth2/code/google"){}
+
     @GetMapping({"","/"})
     public String index() {
         // 머스테치 기본폴더 src/main/resources/
@@ -79,7 +81,7 @@ public class IndexController {
     }
 
 
-    @PreAuthorize("hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN'))")
+    @PreAuthorize("hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")
     //이 메서드가 실행되기 직전에 실행된다 .
     /*
         예)

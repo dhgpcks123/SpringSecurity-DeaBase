@@ -1,5 +1,5 @@
 server:
- port: 8090
+ port: 8080
  servlet:
   context-path: /
   encoding:
@@ -26,8 +26,12 @@ spring:
      client:
       registration:
        google:
-        client-id:
-         client-secret:
+        client-id: 23776500576-864st1iggg5774dmuc82shpglsli5d0p.apps.googleusercontent.com
+        client-secret: i7MXE2YEaFYKuQfR3_EvqvS7
+        scope:
+         - email
+         - profile
+
 
 logging.level:
  org.hibernate.SQL: debug
