@@ -49,12 +49,15 @@ public class IndexController {
     //구글 로그인 시에는 CastException 발생하지 않음. 반대로 그냥 로그인 시 CastException 발생함.
     @GetMapping("/test/oauth/login")
     public @ResponseBody String testOAuthLogin(Authentication authentication,
-                                          @AuthenticationPrincipal PrincipalDetails userDetails) {
+                                          @AuthenticationPrincipal OAuth2User oauth) {
 
         System.out.println("/test/login==============");
         System.out.println("authentication.get = " + authentication.getPrincipal());
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
         System.out.println("principalDetails = " + oAuth2User.getAttributes());
+
+
+        System.out.println("oauth.getAttributes() = " + oauth.getAttributes());
 
         return "OAuth2 세션 정보 확인";
     }
