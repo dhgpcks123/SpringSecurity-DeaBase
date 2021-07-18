@@ -20,23 +20,19 @@ import java.util.Collection;
 @Data
 public class PrincipalDetails implements UserDetails {
 
+    //내 엔티티 User 를 객체로 가지고 있음.
     private User user; // 콤포지션
 
     public PrincipalDetails(User user) {
         this.user = user;
     }
 
-    // 해당 User의 권한을 리턴하는 곳!
+    // 해당 User의 권한을 리턴하는 곳! 모양이 그냥 Collection<? extends GrantedAuthority>인 것 뿐!
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
 //        user.getRole();
         Collection<GrantedAuthority> collect = new ArrayList<>();
-        collect.add(new GrantedAuthority() {
-            @Override
-            public String getAuthority() {
-                return user.getRole();
-            }
-        });
+        collect.add(()->user.getRole());
         return collect;
     }
 

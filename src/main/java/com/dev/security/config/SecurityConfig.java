@@ -1,9 +1,11 @@
 package com.dev.security.config;
 
+import com.dev.security.auth.PrincipalDetailService;
 import com.dev.security.config.oauth.PrincipalOauth2UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -18,6 +20,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private PrincipalOauth2UserService principalOauth2UserService;
+
+    @Autowired
+    private PrincipalDetailService principalDetailService;
 
     //해당 메서드의 리턴되는 오브젝트를 IoC로 등록해준다.
     @Bean
@@ -54,8 +59,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .userInfoEndpoint()
             .userService(principalOauth2UserService)
         ;
-
     }
 
-
+    //내 db로 로그인 처리 해주기 위함.
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(principalDetailService).passwordEncoder(encodePwd());
+    }
 }
