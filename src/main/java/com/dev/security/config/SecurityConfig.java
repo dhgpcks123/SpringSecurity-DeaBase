@@ -43,7 +43,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin().loginPage("/loginForm")
                 .loginProcessingUrl("/login") // /login 주소가 호출이 되면 시큐리티가 낚아채서 대신 로그인을 진행해준다. // password체크도..
-                // 컨트롤러에 /login 안 만들어줘도 된다.
+                // 컨트롤러에 /login 안 만들어줘도 된다. //configuration(AuthenticationManagerBuilder auth)-PrincipalDetailService에 LoadUserByUsername 메서드 실행. 그러면 principalDetails 되돌려줌.
+                // 이건 세션에 담기게 되고(UserDetails로) db에서 채크 된 값들이 채워지게 됨.
                 .defaultSuccessUrl("/")
         .and()
                 .oauth2Login()

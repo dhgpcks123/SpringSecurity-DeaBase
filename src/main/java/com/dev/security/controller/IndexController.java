@@ -63,7 +63,11 @@ public class IndexController {
     }
 
     @GetMapping({"","/"})
-    public String index() {
+    public String index(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        System.out.println("principalDetails = " + principalDetails);
+        // security 통해서 얻은 정보는 해당 어노테이션을 통해서 정보를 받을 수 있다...
+        // 그럼 baseContoller는?
+
         // 머스테치 기본폴더 src/main/resources/
         // 뷰리졸버 설정 : templates (prefix), .mustache (suffix) 설정 생략가능
         // prefix, suffix설정은 WebMvcConfig에서 해줬음.
